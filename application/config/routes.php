@@ -52,6 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Users';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['add_to_fave/(:any)'] = 'Quotes/add_to_fave/$1';
+$route['add_to_fave/(:any)'] = 'Quotes/add_to_fave/$1';	
 $route['remove_fave/(:any)'] = 'Quotes/remove_fave/$1';
 $route['show_user/(:any)'] = 'Users/show_user/$1';
