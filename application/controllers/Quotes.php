@@ -4,7 +4,7 @@ class Quotes extends CI_Controller
 {
 	public function home()
 	{
-		// $this->output->enable_profiler(TRUE);
+		// get user session data, get all quotes, get all favorited quotes and load them onto the page
 		$user_id=$this->session->userdata('user_info')['id'];
 		$quotes=array();
 		$quotes['quote']=$this->Quote->get_quotes($user_id);
@@ -13,19 +13,23 @@ class Quotes extends CI_Controller
 	}
 	public function add_to_fave($id)
 	{
+		// add quote to favorites
 		$user_id=$this->session->userdata('user_info')['id'];
 		$this->Quote->add_to_fave($user_id,$id);
 		redirect(base_url('/Quotes/home'));
 	}
 	public function remove_fave($id)
 	{
+		// remove quote from favorites
 		$this->Quote->remove_fave($id);
 		redirect(base_url('/Quotes/home'));
 	}
 	public function add_quote()
 	{
+		// add quotes
 		$post=$this->input->post();
 		$validation=$this->Quote->quote_validation($post);
+		// validate quote
 		if($validation === 'valid')
 		{
 			$post=$this->input->post();

@@ -5,7 +5,6 @@ class Users extends CI_Controller {
 	public function index()
 	{
 		$this->load->view('index');
-		// $this->output->enable_profiler(TRUE);
 	}
 	public function logoff()
 	{
@@ -14,15 +13,18 @@ class Users extends CI_Controller {
 	}
 	public function create_user()
 	{
+		// create a new user
 		$post=$this->input->post();
 		$this->load->model('User');
 		$result=$this->User->reg_validate($post);
 
+		// validate user input to pass validation rules
 		if($result === "valid")
 		{
 			$username=$this->input->post('username');
 			$email=$this->input->post('email');
 			$check=$this->User->check_email($username,$email);
+			// check to see if user already exists
 			if($check === TRUE)
 			{
 				$this->User->create_user($post);
@@ -49,11 +51,13 @@ class Users extends CI_Controller {
 		$post=$this->input->post();
 		$this->load->model('User');
 		$result=$this->User->login_validate($post);
+		// validate user input to pass validation rules
 		if($result === "valid")
 		{
 			$email=$this->input->post('email');
 			$password=$this->input->post('password');
 			$check_user=$this->User->check_user($email,$password);
+			// check to see if user exists
 			if($check_user === TRUE)
 			{
 				$messages=array('You are not registered. Please register and proceed to login');
@@ -62,6 +66,7 @@ class Users extends CI_Controller {
 			}
 			else
 			{
+				// email has been found, check user input and login user
 				$user_info=array();
 				$email=$this->input->post('email');
 				$password=$this->input->post('password');
@@ -79,6 +84,7 @@ class Users extends CI_Controller {
 	}
 	public function show_user($id)
 	{
+		// get information for specific user
 		$user_data=array();
 		$user_data['user_quotes']=$this->User->show_user($id);
 		$user_data['count']=$this->User->count($id);

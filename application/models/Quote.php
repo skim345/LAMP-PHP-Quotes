@@ -45,6 +45,7 @@ class Quote extends CI_Model
 		$values=array($quote_id);
 		$this->db->query($query,$values);
 	}
+	// validate user input
 	public function quote_validation($post)
 	{
 		$this->load->library("form_validation");

@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_model
 {
+	// validate user registration information
 	public function reg_validate($post)
 	{
 		$this->load->library("form_validation");
@@ -22,6 +23,7 @@ class User extends CI_model
 			return array(validation_errors());
 		}
 	}
+	// validate user login information
 	public function login_validate($post)
 	{
 		$this->load->library("form_validation");
@@ -36,6 +38,7 @@ class User extends CI_model
 			return array(validation_errors());
 		}
 	}
+	// validate user email and password
 	public function check_user($email,$password)
 	{
 		$query="SELECT * FROM users 
@@ -53,6 +56,7 @@ class User extends CI_model
 			return FALSE;
 		}
 	}
+	// check if email already exists
 	public function check_email($username,$email)
 	{
 		$query="SELECT * FROM users WHERE users.username=? OR users.email=?";
@@ -94,6 +98,7 @@ class User extends CI_model
 		$values=array($email,md5($password));
 		return $this->db->query($query,$values)->row_array();
 	}
+	
 	public function count($user_id)
 	{
 		$query="SELECT count(*) AS count, users.username
